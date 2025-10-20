@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gửi Empeeee 💌</title>
+<style>
+body {
+  background: linear-gradient(180deg, #ffe6f2, #ffccd9);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Dancing Script", cursive;
+  color: #d63384;
+  overflow: hidden;
+  transition: background 2s ease;
+}
+#cover {
+  text-align: center;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+#message {
+  display: none;
+  text-align: center;
+}
+h1 {
+  font-size: 2.4em;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out;
+}
+#text {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 1.6em;
+  white-space: pre-wrap;
+  min-height: 200px;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+.heart {
+  position: absolute;
+  color: #ff5fa2;
+  animation: float 5s linear infinite;
+  font-size: 20px;
+  opacity: 0.8;
+}
+@keyframes float {
+  0% {transform: translateY(0) rotate(0);}
+  100% {transform: translateY(-700px) rotate(720deg); opacity: 0;}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="cover">
+  <h1>💌 Chạm để mở thư 💌</h1>
+  <p>Gửi đến Empeeee — món quà nhỏ cho ngày 20/10 💖</p>
+</div>
+
+<div id="message">
+  <h1>💖 Gửi Empeeee 💖</h1>
+  <div id="text"></div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9bfc4183da.mp3?filename=simple-romantic-piano-14092.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const cover = document.getElementById('cover');
+const message = document.getElementById('message');
+const textElement = document.getElementById('text');
+const music = document.getElementById('music');
+
+const lines = [
+  "Chúc empeeee một ngày 20/10 luôn vui vẻ! 💐",
+  "Empeeee sẽ luôn luôn xinh đẹp, hạnh phúc 💕",
+  "Và mãi mãi yêu anh ạaaa 💖"
+];
+
+cover.addEventListener('click', () => {
+  cover.style.display = 'none';
+  message.style.display = 'block';
+  music.play();
+  document.body.style.background = 'linear-gradient(180deg, #ffe6f2, #ff99cc)';
+  
+  // tạo tim bay
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '💗';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 500);
+
+  // hiệu ứng đánh máy từng dòng
+  let lineIndex = 0;
+  function typeLine() {
+    if (lineIndex >= lines.length) return;
+    let text = lines[lineIndex];
+    let charIndex = 0;
+    let currentLine = document.createElement('div');
+    textElement.appendChild(currentLine);
+    let typer = setInterval(() => {
+      currentLine.textContent += text.charAt(charIndex);
+      charIndex++;
+      if (charIndex >= text.length) {
+        clearInterval(typer);
+        lineIndex++;
+        setTimeout(typeLine, 800);
+      }
+    }, 80);
+  }
+  typeLine();
+});
+</script>
+
+</body>
+</html>
